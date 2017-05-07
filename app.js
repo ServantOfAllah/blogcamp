@@ -15,8 +15,9 @@ var express         = require("express"),
     seedDB      = require("./seeds");
 
 //connecting mongoose and creating a database
-mongoose.connect(process.env.DATABASEURL);
-//mongoose.connect("mongodb://abdulmajid:Confort7@ds017886.mlab.com:17886/uniconnect");
+
+//mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://abdulmajid:Confort7@ds017886.mlab.com:17886/uniconnect");
 
 //seedDB();
 app.use(bodyParser.urlencoded({extended: true}));
