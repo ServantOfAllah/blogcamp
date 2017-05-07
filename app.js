@@ -10,7 +10,8 @@ var express         = require("express"),
     // creating schema from folder models
     Campground  = require("./models/campground"),
     Comment     = require("./models/comment"),
-    User        = require("./models/user")
+    User        = require("./models/user"),
+    Admin       = require("./models/admin"),
     seedDB      = require("./seeds");
 
 //seedDB();
@@ -33,9 +34,13 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//passport.use(new LocalStrategy(Admin.authenticate()));
+//passport.serializeUser(Admin.serializeUser());
+//passport.deserializeUser(Admin.deserializeUser());
+
 //connecting mongoose and creating a database
-//mongoose.connect("mongodb://localhost/yelp_camp");
-mongoose.connect("mongodb://abdulmajid:Confort7@ds017886.mlab.com:17886/uniconnect");
+mongoose.connect("mongodb://localhost/yelp_camp");
+//mongoose.connect("mongodb://abdulmajid:Confort7@ds017886.mlab.com:17886/uniconnect");
 
 //implementing the currentUser middleware method to all templates
 app.use(function(req, res, next){
@@ -45,6 +50,18 @@ app.use(function(req, res, next){
     next();
 });
 
+
+//Admin.create({
+//    admin: "abdulmajid",
+//    password: "password"
+//}, function(err, admin){
+//    if(err){
+//        console.log(err)
+//    }else{
+//        console.log("newly created admin");
+//        console.log(admin)
+//    }
+//})
 
 //Campground.create(
 //    {
@@ -86,6 +103,9 @@ app.post("/campgrounds", isLoggedIn, function(req, res){
     }
     //we need an object to pass to the array
     var newCampgroundObj = {name: nameValue, image: imageValue, description: description, author: author};
+    
+    
+    
     Campground.create(newCampgroundObj, function(err, newlyCreated){
         if(err){
             console.log(err);
@@ -234,6 +254,30 @@ app.get("/logout", function(req, res){
     req.logout();
     req.flash("success", "successfully logout");
     res.redirect('/campgrounds')
+});
+
+//admin dashboard
+app.get("/admin", function(req, res){
+    Campground.find({}, function(err, allCampgrounds){
+        if(err){
+            console.log(err);
+        }else{
+            res.render("admin/index", { varcampgrounds: allCampgrounds });
+        }
+    });
+});
+
+//showing admin login form
+app.get("/admin/login", function(req, res){
+   res.render('admin_login.ejs');
+});
+
+//handling the admin login form
+app.post("/admin/login", passport.authenticate("local", 
+    {
+        successRedirect: "/admin", 
+        failureRedirect: "/admin/login"
+    }), function(req, res){
 });
 
 //edit route

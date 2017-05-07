@@ -3,16 +3,23 @@
         <title>YelpCamp</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="/stylesheet/main.css">
+        <link href="/stylesheet/font-awesome.min.css" rel="stylesheet">
+        <link href="/stylesheet/superslides.css" rel="stylesheet">
     </head>
+    
     <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-custom navbar-fixed-top">
         <div class="container-fluid">
             <nav class="navbar-header">
                 <a class="navbar-brand" href="/">yalpCamp</a>
-            </nav>
+            </nav>    
+        
             <div class="collapse navbar-collapse">
+                
                 <ul class="nav navbar-nav navbar-right">
+                    
                     <% if(!currentUser){ %>
+                        <li><a href="/admin/login">As Admin</a></li>
                         <li><a href="/login">Login</a></li>
                         <li><a href="/register">Sign up</a></li>
                    <% }else{ %>
@@ -20,7 +27,7 @@
                         <li><a href="/logout">Logout</a></li>
                     <% } %>
                 </ul>
-        </div>
+            </div>
         </div>
     </nav>
       <div class="container">
