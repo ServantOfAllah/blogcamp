@@ -1,6 +1,6 @@
 @import "bourbon";
 body{
-    //background: purple;
+    background: purple;
     font-family:"Ariel", sans-serif, serif;
     font-weight: 100;
 }
