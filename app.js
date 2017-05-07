@@ -39,8 +39,8 @@ passport.deserializeUser(User.deserializeUser());
 //passport.deserializeUser(Admin.deserializeUser());
 
 //connecting mongoose and creating a database
-mongoose.connect("mongodb://localhost/yelp_camp");
-//mongoose.connect("mongodb://abdulmajid:Confort7@ds017886.mlab.com:17886/uniconnect");
+//mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect("mongodb://abdulmajid:Confort7@ds017886.mlab.com:17886/uniconnect");
 
 //implementing the currentUser middleware method to all templates
 app.use(function(req, res, next){
